@@ -1,0 +1,97 @@
+<%- include('includes/head') %>
+<%- include('includes/navbar') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <!-- TÍTULO -->
+      <div class="text-center mb-4">
+        <h1 class="fw-bold" style="color:#539091;">Calculadora de Gastos</h1>
+        <p class="lead text-muted">Controle seus produtos e valores</p>
+      </div>
+
+      <%- include('./includes/messages') %>
+
+      <!-- CARD PRINCIPAL -->
+      <div class="card shadow border-0">
+        <div class="card-body p-4">
+          <!-- FORM -->
+          <% if(produto._id) { %>
+            <form class="form-produto" action="/produto/edit/<%=produto._id%>" method="POST">
+          <%} else {%>
+            <form class="form-produto" action="/produto/register" method="POST">
+          <%}%>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <!-- INPUTS -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-5">
+                <label class="form-label fw-semibold">Nome</label>
+                <input value="<%= produto.nome || '' %>" type="text" name="nome" class="form-control" placeholder="Digite o nome do produto">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">Quantidade</label>
+                <input value="<%= produto.quantidade || ''%>" type="number" name="quantidade" class="form-control" placeholder="0">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label fw-semibold">Preço</label>
+                <input value="<%= produto.preco || ''%>" type="number" step="0.01" name="preco" class="form-control" placeholder="0.00">
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn w-100 text-white" style="background-color:#539091;">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+          </form>
+          <!-- TABELA -->
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center">
+
+              <thead>
+                <tr style="background-color:#539091; color:white;">
+                  <th>Nome</th>
+                  <th>Quantidade</th>
+                  <th>Preço</th>
+                  <th>Total</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% let somaTotal = 0; %>
+                <% if (produtos && produtos.length > 0) { %>    
+                <% produtos.forEach((produto) => { %>
+                <% const total = produto.preco * produto.quantidade;
+                   somaTotal += total;%>
+                <tr>
+                  <td><%= produto.nome %></td>
+                  <td><%= produto.quantidade %></td>
+                  <td>R$ <%= produto.preco.toFixed(2) %></td>
+                  <td class="fw-bold">R$ <%= total.toFixed(2) %></td>
+                  <td>
+                    <a href="/produto/index/<%= produto._id %>" class="btn btn-sm" style="background-color:#ecc0c0;">Editar</a>
+                    <a href="/produto/delete/<%= produto._id %>" class="btn btn-sm btn-outline-danger">Excluir</a>
+                  </td>
+                </tr>
+                <% }) %>
+                <% } else { %>
+                <tr>
+                  <td colspan="5" class="text-muted py-4">Nenhum produto cadastrado</td>
+                </tr>
+                <% } %>
+              </tbody>
+              <!-- TOTAL FINAL -->
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-end fw-bold fs-5">Total Geral:</td>
+                  <td colspan="2" class="fw-bold fs-5">R$ <%=  somaTotal.toFixed(2) %></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>
