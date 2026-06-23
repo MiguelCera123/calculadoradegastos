@@ -41,17 +41,17 @@ Aplicação web fullstack para gerenciamento de produtos e controle de gastos, c
 
 ## Rotas
 
-| Método | Rota                   | Descrição                          | Autenticação |
-|--------|------------------------|------------------------------------|:------------:|
-| GET    | `/`                    | Página inicial com lista de produtos |     -      |
-| GET    | `/login/index`         | Página de login/cadastro           |      -       |
-| POST   | `/login/register`      | Cadastrar novo usuário             |      -       |
-| POST   | `/login/login`         | Autenticar usuário                 |      -       |
-| GET    | `/login/logout`        | Encerrar sessão                    |      -       |
-| POST   | `/produto/register`    | Cadastrar produto                  |     Sim      |
-| GET    | `/produto/index/:id`   | Página de edição de produto        |     Sim      |
-| POST   | `/produto/edit/:id`    | Atualizar produto                  |     Sim      |
-| GET    | `/produto/delete/:id`  | Deletar produto                    |     Sim      |
+| Método | Rota                  | Descrição                            | Autenticação |
+| ------ | --------------------- | ------------------------------------ | :----------: |
+| GET    | `/`                   | Página inicial com lista de produtos |      -       |
+| GET    | `/login/index`        | Página de login/cadastro             |      -       |
+| POST   | `/login/register`     | Cadastrar novo usuário               |      -       |
+| POST   | `/login/login`        | Autenticar usuário                   |      -       |
+| GET    | `/login/logout`       | Encerrar sessão                      |      -       |
+| POST   | `/produto/register`   | Cadastrar produto                    |     Sim      |
+| GET    | `/produto/index/:id`  | Página de edição de produto          |     Sim      |
+| POST   | `/produto/edit/:id`   | Atualizar produto                    |     Sim      |
+| GET    | `/produto/delete/:id` | Deletar produto                      |     Sim      |
 
 ## Como Rodar Localmente
 
@@ -76,7 +76,7 @@ npm install
 Crie um arquivo `.env` na raiz do projeto:
 
 ```env
-CONNECTIONSTRING=mongodb://localhost:27017/calculadoradegastos
+CONNECTIONSTRING=mongodb+srv://usuario:senha@cluster0.xxxxx.mongodb.net/calculadoradegastos
 ```
 
 ### Scripts
